@@ -16,7 +16,6 @@ public final class CollectionManagerImpl implements CollectionManager {
 
     public CollectionManagerImpl() {
         humanBeings = new Vector<>();
-        //todo хз
         creationDate = ZonedDateTime.now();
     }
 
@@ -140,6 +139,7 @@ public final class CollectionManagerImpl implements CollectionManager {
         }
     }
 
+
     /**
      * вывод всей информации о коллекции
      */
@@ -163,5 +163,10 @@ public final class CollectionManagerImpl implements CollectionManager {
         for (HumanBeing hb : humanBeings) {
             System.out.println(hb);
         }
+    }
+
+    @Override
+    public Vector<HumanBeing> getHumanBeings() {
+        return humanBeings;
     }
 }

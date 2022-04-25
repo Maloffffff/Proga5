@@ -1,23 +1,16 @@
 package validation;
 
 import exception.InvalidFieldException;
-import model.Car;
-import model.Coordinates;
-import model.Mood;
-import model.WeaponType;
+import model.*;
 
-import java.io.BufferedInputStream;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Random;
 
 /**
  * класс, осуществляющий создание экземляров класса HumanBeing
  */
 
-public class HumanBeingBuilderImpl implements HumanBeingBuilder{
+public class HumanBeingBuilderImpl implements HumanBeingBuilder {
     private final HumanBeingValidator validator;
-    private final BufferedInputStream reader;
 
     protected long id = -1; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -31,15 +24,18 @@ public class HumanBeingBuilderImpl implements HumanBeingBuilder{
     private Car car; //Поле может быть null
 
 
-    public HumanBeingBuilderImpl(HumanBeingValidator validator, BufferedInputStream reader) {
+    public HumanBeingBuilderImpl(HumanBeingValidator validator) {
         this.validator = validator;
-        this.reader = reader;
     }
 
     @Override
     public void setId(long id) {
-        this.id = (long) (Math.random()*15679+15);
+        this.id = id;
+    }
 
+    @Override
+    public void setIdRandom() {
+        this.id = (long) (Math.random() * 15679 + 15);
     }
 
     @Override
@@ -50,20 +46,23 @@ public class HumanBeingBuilderImpl implements HumanBeingBuilder{
 
     @Override
     public void setCoordinateX(long x) throws InvalidFieldException {
+        if (coordinates == null)
+            coordinates = new Coordinates();
         validator.validateCoordinateX(x);
-        this.setCoordinateX(x);
-
+        this.coordinates.setX(x);
     }
 
     @Override
     public void setCoordinateY(long y) throws InvalidFieldException {
+        if (coordinates == null)
+            coordinates = new Coordinates();
         validator.validateCoordinateY(y);
-        this.setCoordinateY(y);
+        this.coordinates.setY(y);
     }
 
     @Override
     public void setCreationDate(LocalDate creationDate) {
-        creationDate = LocalDate.now().minus(Period.ofDays((new Random().nextInt(365 * 70))));
+        this.creationDate = LocalDate.now();
     }
 
     @Override
@@ -78,16 +77,14 @@ public class HumanBeingBuilderImpl implements HumanBeingBuilder{
     }
 
     @Override
-    public void setImpactSpeed(int ImpactSpeed) {
+    public void setImpactSpeed(int impactSpeed) {
         this.impactSpeed = impactSpeed;
-
     }
 
     @Override
     public void setWeaponType(WeaponType weaponType) throws InvalidFieldException {
         validator.validateWeaponType(weaponType);
-        this.setWeaponType(weaponType);
-
+        this.weaponType = weaponType;
     }
 
     @Override
@@ -101,5 +98,20 @@ public class HumanBeingBuilderImpl implements HumanBeingBuilder{
     public void setCar(Car car) throws InvalidFieldException {
         validator.validateCar(car);
         this.car = car;
+    }
+
+    @Override
+    public HumanBeing getHumanBeing() {
+        return HumanBeing.builder()
+                .id(id)
+                .name(name)
+                .coordinates(coordinates)
+                .creationDate(creationDate)
+                .realHero(realHero)
+                .hasToothpick(hasToothpick)
+                .impactSpeed(impactSpeed)
+                .weaponType(weaponType)
+                .mood(mood)
+                .car(car).build();
     }
 }

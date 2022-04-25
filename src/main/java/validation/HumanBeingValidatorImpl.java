@@ -9,7 +9,7 @@ import model.WeaponType;
  * класс, осуществялющий валидацию полей класса HumanBeing
  */
 
-public class HumanBeingValidatorImpl implements HumanBeingValidator{
+public class HumanBeingValidatorImpl implements HumanBeingValidator {
 
     @Override
     public void validateId(long id) throws InvalidFieldException {
@@ -18,7 +18,7 @@ public class HumanBeingValidatorImpl implements HumanBeingValidator{
 
     @Override
     public void validateName(String name) throws InvalidFieldException {
-        if (name == null || name == "") throw new InvalidFieldException("Field mustn't be null or empty");
+        if (name == null || name.equals("")) throw new InvalidFieldException("Field mustn't be null or empty");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class HumanBeingValidatorImpl implements HumanBeingValidator{
 
     @Override
     public void validateCoordinateY(Long y) throws InvalidFieldException {
-        if(y==null || y>74) throw new InvalidFieldException("Invalid value for HumanBeing Coordinate y");
+        if (y == null || y > 74) throw new InvalidFieldException("Invalid value for HumanBeing Coordinate y");
     }
 
     @Override

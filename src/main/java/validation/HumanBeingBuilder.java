@@ -2,6 +2,7 @@ package validation;
 
 import exception.InvalidFieldException;
 import model.Car;
+import model.HumanBeing;
 import model.Mood;
 import model.WeaponType;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public interface HumanBeingBuilder {
 
     void setId(long id);
+    void setIdRandom();
     void setName(String name) throws InvalidFieldException;
     void setCoordinateX(long x) throws InvalidFieldException;
     void setCoordinateY(long y) throws InvalidFieldException;
@@ -21,4 +23,6 @@ public interface HumanBeingBuilder {
     void setCar(Car car) throws InvalidFieldException;
     void setRealHero(boolean realHero);
     void setHasToothpick(boolean hasToothPick);
+
+    HumanBeing getHumanBeing();
 }

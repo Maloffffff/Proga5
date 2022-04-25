@@ -3,6 +3,8 @@ package collectionManager;
 import model.HumanBeing;
 import model.WeaponType;
 
+import java.util.Vector;
+
 
 public interface CollectionManager {
     void addElement(HumanBeing humanBeing);
@@ -26,4 +28,6 @@ public interface CollectionManager {
     void show();
 
     void filterByCar(HumanBeing humanBeing, String[] args);
+
+    Vector<HumanBeing> getHumanBeings();
 }

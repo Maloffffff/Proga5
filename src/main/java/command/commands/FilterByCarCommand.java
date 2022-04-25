@@ -20,4 +20,7 @@ public class FilterByCarCommand extends Command{
     public boolean isHumanBeingRequired() {
         return true;
     }
+
+
+
 }
